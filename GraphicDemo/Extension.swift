@@ -25,9 +25,8 @@ extension UIImage {
     func getMaskImageFromTappedColor(_tColor:UIColor) -> UIImage? {
 
         var _image = self
-        var _imageSize = _image.size
-        var _width = Int(_imageSize.width)
-        var _height = Int(_imageSize.height)
+        var _width = Int(_image.size.width)
+        var _height = Int(_image.size.height)
         var _imageData = _image.imageData()
         
         var imageBytes : UnsafeMutablePointer<Byte>;
@@ -44,36 +43,22 @@ extension UIImage {
                     imageWidth: _width,
                     withData: _imageData
                 )
-                let i = (x + y * _width) * 4;
-
-                imageBytes[i] = Byte(color.getRGB().red) // red
-                imageBytes[i+1] = Byte(color.getRGB().green); // green
-                imageBytes[i+2] = Byte(color.getRGB().blue); // blue
-                imageBytes[i+3] = Byte(255); // alpha
-                
-                /*
-                //let (r, g, b) = renderAt((x, y))
-                //if(color == UIColor.redColor()){
+                var i: Int = ((Int(_width) * Int(y)) + Int(x)) * 4
                 if(color == _tColor){
                     imageBytes[i] = Byte(255) // red
                     imageBytes[i+1] = Byte(255); // green
                     imageBytes[i+2] = Byte(255); // blue
                     imageBytes[i+3] = Byte(255); // alpha
                 }else{
-                    /*
-                    imageBytes[i] = Byte(0) // red
-                    imageBytes[i+1] = Byte(0); // green
-                    imageBytes[i+2] = Byte(0); // blue
+                    imageBytes[i]   = Byte(color.getRGB().red) // red
+                    imageBytes[i+1] = Byte(color.getRGB().green); // green
+                    imageBytes[i+2] = Byte(color.getRGB().blue); // blue
                     imageBytes[i+3] = Byte(255); // alpha
-                    */
-                    imageBytes[i] = Byte(_tColor.getRGB().red) // red
-                    imageBytes[i+1] = Byte(_tColor.getRGB().green); // green
-                    imageBytes[i+2] = Byte(_tColor.getRGB().blue); // blue
-                    imageBytes[i+3] = Byte(255); // alpha
-                }*/
+                }
                 _cnt++
             }
         } 
+println(_cnt)
         var provider = CGDataProviderCreateWithData(nil,imageBytes, UInt(newByteLength), nil)
         var bitsPerComponent:UInt = 8
         var bitsPerPixel:UInt = 32
@@ -84,6 +69,7 @@ extension UIImage {
         // make the cgimage
         var cgImage = CGImageCreate(UInt(_width), UInt(_height), bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpaceRef, bitmapInfo, provider, nil, false, renderingIntent)
         return UIImage(CGImage: cgImage)
+        //return self
     }
 
     
@@ -115,15 +101,15 @@ extension UIImage {
         return UIImage(CGImage: cgImage)
     }
     
-    class func colorAtPoint(point: (x: Int, y: Int), imageWidth: Int, withData data: UnsafePointer<UInt8>) -> UIColor {
+    class func colorAtPoint(point:(x:Int,y: Int),imageWidth: Int,withData data: UnsafePointer<UInt8>) -> UIColor {
         let offset = 4 * ((imageWidth * point.y) + point.x)
         
         var r = CGFloat(data[offset])
         var g = CGFloat(data[offset + 1])
         var b = CGFloat(data[offset + 2])
-        
+
         //return (red: r, green: g, blue: b)
-        return UIColor(red: r, green: g, blue: b, alpha: 1)
+        return UIColor(red: r/255, green: g/255, blue: b/255, alpha: 1)
     }
     
     func scaleToSize(toSize: CGSize) -> UIImage {
@@ -139,18 +125,14 @@ extension UIImage {
         return CFDataGetBytePtr(pixelData)
     }    
 
-    func getPixelColor(pos: CGPoint) -> UIColor {
-        
+    func getPixelColor(pos: CGPoint) -> UIColor {        
         var pixelData = CGDataProviderCopyData(CGImageGetDataProvider(self.CGImage))
         var data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
-        
         var pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
-        
         var r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
         var g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
         var b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
         var a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
-
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
 

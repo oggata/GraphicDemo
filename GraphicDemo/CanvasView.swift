@@ -30,12 +30,16 @@ class CanvasView: UIView {
         super.init(frame: frame)
         
         self.baseImage = UIImage(named:"plane.png")
+        //UIImage自体も指定したサイズに変更する必要がある
+        
+        var bFrame = CGSizeMake(frame.size.width,frame.size.height)
+        //self.baseImage = self.baseImage.scaleToSize(bFrame)        
         self.baseImageView = UIImageView(image:self.baseImage)
         self.baseImageView.frame = CGRect(
             x:0,
             y:0,
-            width:frame.size.width,
-            height:frame.size.height
+            width:self.baseImage.size.width,
+            height:self.baseImage.size.height
         )
         self.addSubview(self.baseImageView)
         
@@ -74,28 +78,20 @@ self.drawImageView.hidden = true
         paths.append(currentPath!)
         addToPath(touches)
         
-        //タッチした先の色を取得する
-        var _cgPoint : CGPoint = CGPointMake(point.x,point.y)
-        var _uiColor : UIColor? = self.baseImage?.getPixelColor(_cgPoint)
-println(_uiColor)
         
-        /*
+        //タッチした先の色を取得する
+        var _cgPoint : CGPoint = CGPointMake(point.x,point.y)        
+        var _uiColor : UIColor? = self.baseImage?.getPixelColor(_cgPoint)
         var testImage = UIImageView(image:self.getRedCircleImage(_uiColor!))
         //読み込み画像を表示領域にあわせる必要がある
-        testImage.frame = CGRectMake(0,0,50,50)
+        testImage.frame = CGRectMake(300,0,50,50)
         self.addSubview(testImage)
-        */
-        
-        
+                
         //タッチした先の色の箇所を全走査する
         self.baseImage?.fitnessBetweenImages(_uiColor!)
-        //self.baseImage?.fitnessBetweenImages(UIColor.redColor())
-        
-        //var _rgb = _uiColor?.getRGB().red
-        //println(_rgb)
     
         //全走査した箇所でhitした分を全部drawImageに白で塗りつぶす
-        self.newMaskImage = self.baseImage?.getMaskImageFromTappedColor(_uiColor!)
+        self.drawImage = self.baseImage?.getMaskImageFromTappedColor(_uiColor!)
     }
     
     // MARK: - タッチ移動時の入力制御
@@ -121,7 +117,9 @@ println(_uiColor)
             paths:self.paths,
             drawWidth:10,
             drawCGColor:UIColor(red:1,green:1,blue:1,alpha:1).CGColor
-        )        
+        )
+        
+
         self.drawImageView.image = self.drawImage
     }
     
@@ -136,13 +134,15 @@ println("touchEnd")
             maskImage:UIImage(named:"white.png"))
         */
         
-        /*
+        
         self.baseImageView.image = self.getMaskedImage(
             UIImage(named:"plane.png"),
             maskImage:self.drawImage)
-        */
         
-        self.baseImageView.image = self.newMaskImage
+        
+        //self.baseImageView.image = self.newMaskImage
+    
+        //self.drawImageView = UIImageView(image:self.drawImage)
     }
 
     private func addToPath(touches: NSSet) {

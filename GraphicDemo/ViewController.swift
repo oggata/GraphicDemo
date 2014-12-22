@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         //self.imageView.delaysContentTouches = true
         self.imageView.userInteractionEnabled = true
         // Do any additional setup after loading the view, typically from a nib.
-    
+/*
         var _planeImageView = UIImageView(image:UIImage(named:"plane.png"))
         _planeImageView.frame = CGRectMake(120*0,120*0,100,100)
         self.imageView.addSubview(_planeImageView)
@@ -95,8 +95,8 @@ class ViewController: UIViewController {
         var _drawView2 = CanvasView(frame:CGRectMake(120*1,120*4,100,100))
         _drawView2.backgroundColor = UIColor.clearColor()
         self.imageView.addSubview(_drawView2)
-
-        var _drawView3 = CanvasView(frame:CGRectMake(120*2,120*4,100,100))
+*/
+        var _drawView3 = CanvasView(frame:CGRectMake(0,0,300,300))
         _drawView3.backgroundColor = UIColor.clearColor()
         self.imageView.addSubview(_drawView3)
     }
