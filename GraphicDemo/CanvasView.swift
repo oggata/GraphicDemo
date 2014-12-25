@@ -10,9 +10,9 @@ import UIKit
 class CanvasView: UIView {
     
     var baseImage : UIImage!
-    var drawImage : UIImage!
+    var maskImage : UIImage!
     var baseImageView : UIImageView!
-    var drawImageView : UIImageView!
+    var maskImageView : UIImageView!
     
     var newMaskImage : UIImage!
     
@@ -30,7 +30,8 @@ class CanvasView: UIView {
         super.init(frame: frame)
         
         //写真を表示するUIImageをaddする
-        self.baseImage = UIImage(named:"plane.png")        
+        self.baseImage = UIImage(named:"plane.png") 
+        //self.baseImage = UIImage(named:"test_color.png")
         var bFrame = CGSizeMake(frame.size.width,frame.size.height)
         //self.baseImage = self.baseImage.scaleToSize(bFrame)        
         self.baseImageView = UIImageView(image:self.baseImage)
@@ -42,21 +43,33 @@ class CanvasView: UIView {
         )
         self.addSubview(self.baseImageView)
         
-        
+
         //マスクするためのUIImageをaddする
-        self.drawImage = UIImage(named:"black.png")
-        self.drawImageView = UIImageView(image:self.drawImage)
+        self.maskImage = UIImage(named:"black.png")
+        self.maskImageView = UIImageView(image:self.maskImage)
         //読み込み画像を表示領域にあわせる必要がある
-        self.drawImageView.frame = CGRect(
+        self.maskImageView.frame = CGRect(
             x:0,
             y:0,
             width:frame.size.width,
             height:frame.size.height
         )
-        self.addSubview(self.drawImageView)
-        //self.drawImageView.hidden = true
+        self.addSubview(self.maskImageView)
+        self.maskImageView.hidden = true
+        self.maskImageView.userInteractionEnabled = false
     }
     
+    func setImage(image: UIImage){
+        self.baseImage = image
+        self.baseImageView.image = self.baseImage
+        self.baseImageView.frame = CGRect(
+            x:0,
+            y:0,
+            width:self.baseImage.size.width,
+            height:self.baseImage.size.height
+        )
+    }
+
     //赤色の円
     func getRedCircleImage(tColor:UIColor) -> UIImage{
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(100,100),false,0.0)
@@ -77,24 +90,27 @@ class CanvasView: UIView {
         self.currentPath = Path()
         paths.append(currentPath!)
         addToPath(touches)
-        
-        
+
         //タッチした先の色を取得する
         var _cgPoint : CGPoint = CGPointMake(point.x,point.y)        
         var _uiColor : UIColor? = self.baseImage?.getPixelColor(_cgPoint)
-        var testImage = UIImageView(image:self.getRedCircleImage(_uiColor!))
+        //var testImage = UIImageView(image:self.getRedCircleImage(_uiColor!))
         //読み込み画像を表示領域にあわせる必要がある
-        testImage.frame = CGRectMake(300,0,50,50)
-        self.addSubview(testImage)
+        //testImage.frame = CGRectMake(300,0,50,50)
+        //self.addSubview(testImage)
                 
-        //タッチした先の色の箇所を全走査する
-        self.baseImage?.fitnessBetweenImages(_uiColor!)
+        //タッチした先の色の箇所を全走査して、
+        //self.baseImage?.fitnessBetweenImages(_uiColor!)
     
         //全走査した箇所でhitした分を全部drawImageに白で塗りつぶす
-        self.drawImage = self.baseImage?.getMaskImageFromTappedColor(_uiColor!)
-        
-        
-        
+        self.baseImage = self.baseImage?.getMaskImageFromTappedColor(_uiColor!)
+        self.baseImageView.image = self.baseImage
+        //self.baseImageView.image = self.maskImage
+        /*
+        self.baseImage.isAlmostSameColor(
+            UIColor(red:1,green:1,blue:1,alpha:1),
+            secondColor:UIColor(red:1,green:1,blue:1,alpha:1)
+        )*/
     }
     
     // MARK: - タッチ移動時の入力制御
@@ -113,17 +129,13 @@ class CanvasView: UIView {
             self.frame,
             paths:self.paths
         )*/
-        
-        
-        self.drawImage = self.drawImage?.drawPathsWithOption(
+        self.maskImage = self.maskImage?.drawPathsWithOption(
             self.frame,
             paths:self.paths,
             drawWidth:10,
             drawCGColor:UIColor(red:1,green:1,blue:1,alpha:1).CGColor
         )
-        
-
-        self.drawImageView.image = self.drawImage
+        self.maskImageView.image = self.maskImage
     }
     
     // MARK: - タッチ終了時の入力制御
@@ -137,14 +149,13 @@ println("touchEnd")
             maskImage:UIImage(named:"white.png"))
         */
         
-        
+        /*
         self.baseImageView.image = self.getMaskedImage(
             UIImage(named:"plane.png"),
-            maskImage:self.drawImage)
-        
+            maskImage:self.maskImage)
+        */
         
         //self.baseImageView.image = self.newMaskImage
-    
         //self.drawImageView = UIImageView(image:self.drawImage)
     }
 

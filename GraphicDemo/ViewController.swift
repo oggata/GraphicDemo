@@ -29,14 +29,15 @@ class ViewController: UIViewController {
         //_maskImageView.frame = CGRectMake(120*1,120*0,100,100)
         //self.imageView.addSubview(_maskImageView)
         
-        var _masked = getMaskedImage(_planeImageView.image,maskImage:_maskImageView.image)
+        var _masked = _planeImageView.image?.getMaskedImage(_maskImageView.image?)
         var _maskedImage = UIImageView(image:_masked)
         _maskedImage.frame = CGRectMake(120*1,120*0,100,100)
         self.imageView.addSubview(_maskedImage)
-
-        var _shadowedImage = UIImageView(image:self.getShadowedImage())
-        _shadowedImage.frame = CGRectMake(120*2,120*0,100,100)
-        self.imageView.addSubview(_shadowedImage)
+        
+        var _shadow = _planeImageView.image?.getShadowedImage()
+        var _shadowImage = UIImageView(image:_shadow)
+        _shadowImage.frame = CGRectMake(120*2,120*0,100,100)
+        self.imageView.addSubview(_shadowImage)
         
         var _redRect = UIImageView(image:self.getRedRectImage())
         _redRect.frame = CGRectMake(120*0,120*1,100,100)
@@ -58,36 +59,29 @@ class ViewController: UIViewController {
         _bezierLine.frame = CGRectMake(120*1,120*2,100,100)
         self.imageView.addSubview(_bezierLine)
         
-        /*
-        var _bezierFilled = UIImageView(image:getFilledImageUsingBezier())
-        _bezierFilled.frame = CGRectMake(120*2,120*2,100,100)
-        self.imageView.addSubview(_bezierFilled)
-        */
+        //var _bezierFilled = UIImageView(image:getFilledImageUsingBezier())
+        //_bezierFilled.frame = CGRectMake(120*2,120*2,100,100)
+        //self.imageView.addSubview(_bezierFilled)
+        
         var _filledPath = UIImageView(image:getFilledImageUsingPath())
         _filledPath.frame = CGRectMake(120*2,120*2,100,100)
         self.imageView.addSubview(_filledPath)
         
-        var _sepia = UIImageView(image:self.getSepiaFilterImage(
-            _planeImageView,
-            filterName:"CISepiaTone")
-        )
-        _sepia.frame = CGRectMake(120*0,120*3,100,100)
-        self.imageView.addSubview(_sepia)
+        var _sepia = _planeImageView.image?.getFilteredImage("CISepiaTone")
+        var _sepiaImage = UIImageView(image:_sepia)
+        _sepiaImage.frame = CGRectMake(120*0,120*3,100,100)
+        self.imageView.addSubview(_sepiaImage)
         
-        var _instant = UIImageView(image:self.getSepiaFilterImage(
-            _planeImageView,
-            filterName:"CIPhotoEffectInstant")
-        )
-        _instant.frame = CGRectMake(120*1,120*3,100,100)
-        self.imageView.addSubview(_instant)
+        var _instant = _planeImageView.image?.getFilteredImage("CIPhotoEffectInstant")
+        var _instantImage = UIImageView(image:_instant)
+        _instantImage.frame = CGRectMake(120*1,120*3,100,100)
+        self.imageView.addSubview(_instantImage)
         
-        var _transfer = UIImageView(image:self.getSepiaFilterImage(
-            _planeImageView,
-            filterName:"CIPhotoEffectTransfer")
-        )
-        _transfer.frame = CGRectMake(120*2,120*3,100,100)
-        self.imageView.addSubview(_transfer)
-
+        var _transfer = _planeImageView.image?.getFilteredImage("CIPhotoEffectTransfer")
+        var _transferImage = UIImageView(image:_transfer)
+        _transferImage.frame = CGRectMake(120*2,120*3,100,100)
+        self.imageView.addSubview(_transferImage)
+        
         var _drawView = CanvasView(frame:CGRectMake(120*0,120*4,100,100))
         _drawView.backgroundColor = UIColor.clearColor()
         self.imageView.addSubview(_drawView)
@@ -96,16 +90,29 @@ class ViewController: UIViewController {
         _drawView2.backgroundColor = UIColor.clearColor()
         self.imageView.addSubview(_drawView2)
 */
-        var _drawView3 = CanvasView(frame:CGRectMake(0,0,300,300))
+        
+        var _transfer = UIImageView(image:UIImage(named:"girl.png"))
+        _transfer = UIImageView(image:_transfer.image?.getKirinuki())
+        //_transfer = UIImageView(image:_transfer.image?.getColorControlsFilterImage())
+        //_transfer = UIImageView(image:_transfer.image?.getThresholdingImage(0))
+        
+        //_transfer = UIImageView(image:self.getSepiaFilterImage(_transfer,filterName:"CIColorMonochrome"))
+        //_transfer = UIImageView(image:self.getColorControlsFilterImage(_transfer))
+        //_transfer = UIImageView(image:self.getMonochromeFilterImage(_transfer))
+
+        var _drawView3 = CanvasView(frame:CGRectMake(0,0,500,500))
+        //var _img  = UIImage(named:"test_color.png")
+        _drawView3.setImage(_transfer.image!)
         _drawView3.backgroundColor = UIColor.clearColor()
         self.imageView.addSubview(_drawView3)
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     //赤色の矩形
     func getRedRectImage() -> UIImage{
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(100,100),false,0.0);
@@ -235,54 +242,6 @@ class ViewController: UIViewController {
         var _uiImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();        
         return _uiImage
-    }
-    
-    //マスクされた画像を作成
-    func getMaskedImage(originalImage:UIImage!,maskImage:UIImage!) -> UIImage {        
-        let maskImageReference:CGImage? = maskImage?.CGImage
-        let mask = CGImageMaskCreate(CGImageGetWidth(maskImageReference),
-            CGImageGetHeight(maskImageReference),
-            CGImageGetBitsPerComponent(maskImageReference),
-            CGImageGetBitsPerPixel(maskImageReference),
-            CGImageGetBytesPerRow(maskImageReference),
-            CGImageGetDataProvider(maskImageReference),nil,false)
-        let maskedImageReference = CGImageCreateWithMask(originalImage?.CGImage, mask)
-        let maskedImage = UIImage(CGImage: maskedImageReference)
-        return maskedImage!
-    }
-    
-    //影を付ける
-    func getShadowedImage() -> UIImage{
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(100,100),false,0.0)
-        var _context : CGContextRef = UIGraphicsGetCurrentContext()
-        //画像の右下8の方向に影を描画する
-        CGContextSetShadowWithColor(
-            _context,
-            CGSizeMake(6,6),
-            8,
-            UIColor(red:0,green:0,blue:0,alpha:1).CGColor
-        )
-        CGContextDrawImage(
-            _context,
-            CGRectMake(0,0,80,80),
-            UIImage(named:"plane.png")?.CGImage
-        )
-        var _uiImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();        
-        return _uiImage
-    }
-    
-    //画像にフィルターをかける
-    func getSepiaFilterImage(baseImage:UIImageView,filterName:String) -> UIImage?{
-        var filter = CIFilter(name:filterName)
-        var unfilteredImage = CIImage(CGImage:baseImage.image?.CGImage)
-        filter.setValue(unfilteredImage, forKey: kCIInputImageKey)
-        var context = CIContext(options: nil)
-        var filteredImage: CIImage = filter.outputImage
-        var extent = filteredImage.extent()
-        var cgImage:CGImageRef = context.createCGImage(filteredImage, fromRect: extent)
-        var finalImage = UIImage(CGImage: cgImage)
-        return finalImage
     }
 }
 

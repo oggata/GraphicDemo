@@ -13,6 +13,13 @@
 		F33936221A3FD4BD00E5C89D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F33936211A3FD4BD00E5C89D /* Images.xcassets */; };
 		F33936251A3FD4BD00E5C89D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F33936231A3FD4BD00E5C89D /* LaunchScreen.xib */; };
 		F33936311A3FD4BD00E5C89D /* GraphicDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33936301A3FD4BD00E5C89D /* GraphicDemoTests.swift */; };
+		F34B40A61A4B9F78003BF6C3 /* test_color.png in Resources */ = {isa = PBXBuildFile; fileRef = F34B40A51A4B9F78003BF6C3 /* test_color.png */; };
+		F34B40A81A4BC164003BF6C3 /* girl.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F34B40A71A4BC164003BF6C3 /* girl.jpg */; };
+		F34B40AA1A4BC1B3003BF6C3 /* girl.png in Resources */ = {isa = PBXBuildFile; fileRef = F34B40A91A4BC1B3003BF6C3 /* girl.png */; };
+		F34B40AF1A4BC37F003BF6C3 /* fukatsu3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F34B40AB1A4BC37F003BF6C3 /* fukatsu3.jpg */; };
+		F34B40B01A4BC37F003BF6C3 /* fukatsu2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F34B40AC1A4BC37F003BF6C3 /* fukatsu2.jpg */; };
+		F34B40B11A4BC37F003BF6C3 /* fukatsu1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F34B40AD1A4BC37F003BF6C3 /* fukatsu1.jpg */; };
+		F34B40B21A4BC37F003BF6C3 /* fukatsu4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F34B40AE1A4BC37F003BF6C3 /* fukatsu4.jpg */; };
 		F3AD38D21A3FD77100F7BB89 /* plane.png in Resources */ = {isa = PBXBuildFile; fileRef = F3AD38D11A3FD77100F7BB89 /* plane.png */; };
 		F3AD38D41A3FD89A00F7BB89 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = F3AD38D31A3FD89A00F7BB89 /* mask.png */; };
 		F3AD38D61A3FF60C00F7BB89 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AD38D51A3FF60C00F7BB89 /* CanvasView.swift */; };
@@ -43,6 +50,13 @@
 		F339362A1A3FD4BD00E5C89D /* GraphicDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GraphicDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F339362F1A3FD4BD00E5C89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F33936301A3FD4BD00E5C89D /* GraphicDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicDemoTests.swift; sourceTree = "<group>"; };
+		F34B40A51A4B9F78003BF6C3 /* test_color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_color.png; sourceTree = "<group>"; };
+		F34B40A71A4BC164003BF6C3 /* girl.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = girl.jpg; sourceTree = "<group>"; };
+		F34B40A91A4BC1B3003BF6C3 /* girl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = girl.png; sourceTree = "<group>"; };
+		F34B40AB1A4BC37F003BF6C3 /* fukatsu3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fukatsu3.jpg; sourceTree = "<group>"; };
+		F34B40AC1A4BC37F003BF6C3 /* fukatsu2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fukatsu2.jpg; sourceTree = "<group>"; };
+		F34B40AD1A4BC37F003BF6C3 /* fukatsu1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fukatsu1.jpg; sourceTree = "<group>"; };
+		F34B40AE1A4BC37F003BF6C3 /* fukatsu4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fukatsu4.jpg; sourceTree = "<group>"; };
 		F3AD38D11A3FD77100F7BB89 /* plane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plane.png; sourceTree = "<group>"; };
 		F3AD38D31A3FD89A00F7BB89 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask.png; sourceTree = "<group>"; };
 		F3AD38D51A3FF60C00F7BB89 /* CanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
@@ -93,11 +107,18 @@
 			children = (
 				F339361A1A3FD4BD00E5C89D /* AppDelegate.swift */,
 				F339361C1A3FD4BD00E5C89D /* ViewController.swift */,
+				F34B40AB1A4BC37F003BF6C3 /* fukatsu3.jpg */,
+				F34B40AC1A4BC37F003BF6C3 /* fukatsu2.jpg */,
+				F34B40AD1A4BC37F003BF6C3 /* fukatsu1.jpg */,
+				F34B40AE1A4BC37F003BF6C3 /* fukatsu4.jpg */,
+				F34B40A91A4BC1B3003BF6C3 /* girl.png */,
+				F34B40A71A4BC164003BF6C3 /* girl.jpg */,
 				F339361E1A3FD4BD00E5C89D /* Main.storyboard */,
 				F33936211A3FD4BD00E5C89D /* Images.xcassets */,
 				F33936231A3FD4BD00E5C89D /* LaunchScreen.xib */,
 				F3AD38D11A3FD77100F7BB89 /* plane.png */,
 				F3AD38DB1A4004D000F7BB89 /* white.png */,
+				F34B40A51A4B9F78003BF6C3 /* test_color.png */,
 				F3AD38DD1A40091500F7BB89 /* black.png */,
 				F3AD38D31A3FD89A00F7BB89 /* mask.png */,
 				F33936181A3FD4BD00E5C89D /* Supporting Files */,
@@ -213,13 +234,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F34B40B01A4BC37F003BF6C3 /* fukatsu2.jpg in Resources */,
 				F3AD38D21A3FD77100F7BB89 /* plane.png in Resources */,
+				F34B40AA1A4BC1B3003BF6C3 /* girl.png in Resources */,
 				F3AD38DE1A40091500F7BB89 /* black.png in Resources */,
 				F3AD38D41A3FD89A00F7BB89 /* mask.png in Resources */,
 				F33936201A3FD4BD00E5C89D /* Main.storyboard in Resources */,
+				F34B40A81A4BC164003BF6C3 /* girl.jpg in Resources */,
 				F33936251A3FD4BD00E5C89D /* LaunchScreen.xib in Resources */,
+				F34B40B21A4BC37F003BF6C3 /* fukatsu4.jpg in Resources */,
 				F33936221A3FD4BD00E5C89D /* Images.xcassets in Resources */,
 				F3AD38DC1A4004D000F7BB89 /* white.png in Resources */,
+				F34B40AF1A4BC37F003BF6C3 /* fukatsu3.jpg in Resources */,
+				F34B40A61A4B9F78003BF6C3 /* test_color.png in Resources */,
+				F34B40B11A4BC37F003BF6C3 /* fukatsu1.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
