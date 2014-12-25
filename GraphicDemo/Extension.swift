@@ -45,9 +45,15 @@ extension UIImage {
                 )
                 var i: Int = ((Int(_width) * Int(y)) + Int(x)) * 4
                 if(color == _tColor){
+                    /*
                     imageBytes[i] = Byte(255) // red
                     imageBytes[i+1] = Byte(255); // green
                     imageBytes[i+2] = Byte(255); // blue
+                    imageBytes[i+3] = Byte(255); // alpha
+                    */
+                    imageBytes[i]   = Byte(color.getRGB().red) // red
+                    imageBytes[i+1] = Byte(color.getRGB().green); // green
+                    imageBytes[i+2] = Byte(color.getRGB().blue); // blue
                     imageBytes[i+3] = Byte(255); // alpha
                 }else{
                     imageBytes[i]   = Byte(color.getRGB().red) // red

@@ -29,9 +29,8 @@ class CanvasView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.baseImage = UIImage(named:"plane.png")
-        //UIImage自体も指定したサイズに変更する必要がある
-        
+        //写真を表示するUIImageをaddする
+        self.baseImage = UIImage(named:"plane.png")        
         var bFrame = CGSizeMake(frame.size.width,frame.size.height)
         //self.baseImage = self.baseImage.scaleToSize(bFrame)        
         self.baseImageView = UIImageView(image:self.baseImage)
@@ -43,7 +42,8 @@ class CanvasView: UIView {
         )
         self.addSubview(self.baseImageView)
         
-        //self.drawImage = self.getBlankUIImage()
+        
+        //マスクするためのUIImageをaddする
         self.drawImage = UIImage(named:"black.png")
         self.drawImageView = UIImageView(image:self.drawImage)
         //読み込み画像を表示領域にあわせる必要がある
@@ -54,7 +54,7 @@ class CanvasView: UIView {
             height:frame.size.height
         )
         self.addSubview(self.drawImageView)
-self.drawImageView.hidden = true
+        //self.drawImageView.hidden = true
     }
     
     //赤色の円
@@ -92,6 +92,9 @@ self.drawImageView.hidden = true
     
         //全走査した箇所でhitした分を全部drawImageに白で塗りつぶす
         self.drawImage = self.baseImage?.getMaskImageFromTappedColor(_uiColor!)
+        
+        
+        
     }
     
     // MARK: - タッチ移動時の入力制御

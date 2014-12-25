@@ -284,10 +284,5 @@ class ViewController: UIViewController {
         var finalImage = UIImage(CGImage: cgImage)
         return finalImage
     }
-    
-    
-    
-    
-    
 }
 
